@@ -50,7 +50,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       backgroundColor: Color(0xFF2B4C7E), // 원하셨던 네이비 블루 배경색
       body: Center(
         child: Text(
-          '로딩 완료! 메인 화면입니다.',
+          '로딩 완료',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
