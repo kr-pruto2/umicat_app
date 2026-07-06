@@ -38,7 +38,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   void _initialization() async {
     // 2초 동안 로딩하는 척 대기 (마켓컬리처럼!)
-    await Future.delayed(const Duration(seconds: 300));
+    await Future.delayed(const Duration(seconds: 20));
     
     // 로딩이 끝나면 스플래시 화면을 부드럽게 걷어냅니다.
     FlutterNativeSplash.remove();
@@ -47,17 +47,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFF2B4C7E), // 원하셨던 네이비 블루 배경색
-      body: Center(
-        child: Text(
-          '로딩 완료',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      backgroundColor: Colors.white, // 원하셨던 네이비 블루 배경색
     );
   }
 }
