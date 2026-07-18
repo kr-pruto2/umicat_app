@@ -1,4 +1,4 @@
-//src 폴더를 생성해서 그 안에 넣을 것 
+// src/app.dart  
 
 import 'package:umicat_app/main.dart';
 import 'package:flutter/material.dart';
