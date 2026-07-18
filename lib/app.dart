@@ -37,9 +37,26 @@ class InitStartPage extends StatelesWidget {
 	Widget build(BuildContext context) {
 		return const Scaffold(
 			body: Center(
-				child: text{
-					'초기 소개 페이지',
-					style: TextStyle(color: Colors.white),
+				child: Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					children: [
+						SizedBox(
+							width: 99,
+							height: 116,
+							child: Image.asset(
+								'asset/images/logo.png',   //로고 파일명 변경할 필요 있음
+							),
+						),
+						Text(
+							'당신의 최애 밴드를 발견하고 그들의 일상에 공감해보세요!',
+							style: GoogleFonts.notoSans(
+								fontWeight: FontWeight.bold,
+								fontSize: 20,
+								color: Colors.white,
+							),
+						),
+						Text
+					],
 				),
 			),
 		);
