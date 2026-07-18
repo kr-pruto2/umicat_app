@@ -1,6 +1,8 @@
 // src/app.dart  
 
 import 'package:umicat_app/main.dart';
+import 'package:umicat_app/src/init/page/init_start_page.dart';
+import 'package:umicat_app/src/splash/page/splash_page.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -37,6 +39,26 @@ class InitStartPage extends StatelesWidget {
 			body: Center(
 				child: text{
 					'초기 소개 페이지',
+					style: TextStyle(color: Colors.white),
+				),
+			),
+		);
+	}
+}
+
+// src/splash/page/splash_page.dart
+
+import 'package:flutter/material.dart';
+
+class SplashPage extends StatelessWidget {
+	const SplashPage({super.key});
+
+	@override
+	Widget build(BuildContext context) {
+		return const Scaffold(
+			body: Center(
+				child: Text(
+					'splash 페이지',
 					style: TextStyle(color: Colors.white),
 				),
 			),
