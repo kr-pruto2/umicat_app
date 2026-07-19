@@ -203,30 +203,38 @@ class SplashPage extends GetView<SplashController> {
 	Widget build(BuildContext context) {
 		return Scaffold(
 			body: Center(
-				child: GetxListener<StepType> {
-					initCall: () {
-						controller.loadStep(StepType.dataLoad);
-					},
-					listen: (StepType? value) {
-						if (value == null) return;
-						switch (value) {
-							case StepType.init:
-							case StepType.dataLoad:
-								Get.find<DataLoadController>().loadData();
-								break;
-							case StepType.authCheck:
-								print('authCheck');
-								break;
+				child: GetxListener<bool>(
+					listen: (bool value) {
+						if (value) {
+							controller.loadStep(StepType.authCheck);
 						}
 					},
-					stream: controller.loadStep,
-					child: Obx(
-						() {
-							return Text(
-								'${controller.loadStep.value.name}중 입니다.',
-								style: const TextStyle(color: Colors.white),
-							);
+					stream: Get.find<DataLoadController>().isDataLoad,
+					child: GetxListener<StepType> {
+						initCall: () {
+							controller.loadStep(StepType.dataLoad);
 						},
+						listen: (StepType? value) {
+							if (value == null) return;
+							switch (value) {
+								case StepType.init:
+								case StepType.dataLoad:
+									Get.find<DataLoadController>().loadData();
+									break;
+								case StepType.authCheck:
+									print('authCheck');
+									break;
+							}
+						},
+						stream: controller.loadStep,
+						child: Obx(
+							() {
+								return Text(
+									'${controller.loadStep.value.name}중 입니다.',
+									style: const TextStyle(color: Colors.white),
+								);
+							},
+						),
 					),
 				),
 			),
