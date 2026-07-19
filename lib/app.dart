@@ -171,3 +171,24 @@ class SplashPage extends StatelessWidget {
 		);
 	}
 }
+
+// src/splash/controller/splash_controller.dart
+
+class SplashController extends GetxController {
+	Rx<StepType> loadStep = StepType.dataLoad.obs;
+	
+	changeStep(StepType type) {
+		loadStep(type);
+	}
+}
+
+// src/splash/enum/step_type.dart
+
+enum StepType {
+	dataLoad('데이터 로드'),
+	authCheck('인증 체크');
+
+	const StepType(this.name);
+	final String name;
+}
+
