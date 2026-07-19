@@ -152,22 +152,87 @@ class Appfonts extends StatelessWidget {
 	}
 }
 
-// src/splash/page/splash_page.dart
+// src/common/components/getx_listener.dart
+
+import 'package:flutter/material.dart'
+import 'package:get/get.dart';
+
+class GetxListener<T> extends StatefulWidget {
+	final Rx<T> stream;
+	final Widget child;
+	final Function(T) listen;
+	final Function()? initCall;
+	const GetxListener({
+		super.key,
+		this.initCall,
+		required this.stream,
+		required this.listen,
+		required this.child,
+	});
+
+	@override
+	State<GetxListener> createState() {
+		stream.listen(listen);
+		return _GetxListenerState();
+	}
+}
+
+class _GetxListenerState extends State<GetxListener> {
+	@override
+	void initState() {
+		super.initState();
+
+		if (widget.initCall != null) {
+			widget.initCall!();
+		}
+	}
+	@override
+	Widget build(BuildContext context) {
+		return widget.child;
+	}
+}
+
+// src/splash/page/splash.dart
 
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends GetView<SplashController> {
 	const SplashPage({super.key});
 
 	@override
 	Widget build(BuildContext context) {
-		return const Scaffold(
+		return Scaffold(
 			body: Center(
-				child: Text(
-					'splash 페이지',
-					style: TextStyle(color: Colors.white),
+				child: GetxListener<StepType> {
+					initCall: () {
+						controller.loadStep(StepType.dataLoad);
+					},
+					listen: (StepType? value) {
+						if (value == null) return;
+						switch (value) {
+							case StepType.init:
+							case StepType.dataLoad:
+								print('dataLoad');
+								break;
+							case StepType.authCheck:
+								print('authCheck');
+								break;
+						}
+					},
+					stream: controller.loadStep,
+					child: Obx(
+						() {
+							return Text(
+								'${controller.loadStep.value.name}중 입니다.',
+								style: const TextStyle(color: Colors.white),
+							);
+						},
+					),
 				),
 			),
+			FloatingActionButton: FloatingActionButton(onPressed: () {
+				controller.loadStep(StepType.authCheck);
+			}),
 		);
 	}
 }
@@ -182,9 +247,23 @@ class SplashController extends GetxController {
 	}
 }
 
+// src/splash/controller/data_load_controller.dart
+
+import package:get/get.dart'
+
+class DataLoadController extends GetxController {
+	RxBool isDataload = false.obs;
+
+	void loadData() async {
+		await Future.delayed(const Duration(miliseconds: 2000));
+		isDataLoad(true);
+	}
+}
+
 // src/splash/enum/step_type.dart
 
 enum StepType {
+	init(''),
 	dataLoad('데이터 로드'),
 	authCheck('인증 체크');
 
