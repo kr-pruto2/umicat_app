@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget{
 				),
 				scaffoldBackgroundColor: const Color(0xff212123),
 			),
+			initialBinding: BindingsBuilder(() {
+				Get.put(SplashController());
+			}),
 			getPages: [],
 				GetPage(name: '/', page: () => const App()),
 			],
