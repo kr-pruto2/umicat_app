@@ -47,6 +47,7 @@ class InitStartPage extends StatelesWidget {
 								'asset/images/logo.png',   //로고 파일명 변경할 필요 있음
 							),
 						),
+						const SizeBox(height: 40),
 						Text(
 							'당신의 최애 밴드를 발견하고 그들의 일상에 공감해보세요!',
 							style: GoogleFonts.notoSans(
@@ -55,7 +56,15 @@ class InitStartPage extends StatelesWidget {
 								color: Colors.white,
 							),
 						),
-						Text
+						const SizeBox(height: 15),
+						Text(
+							'당신의 최애 밴드를 발견하고 그들의 일상에 공감해보세요!',
+							style: GoogleFonts.notoSans(
+								textAlign: TextAlign.center,
+								fontSize: 18,
+								color: Colors.white.withOpacity(0.6),
+							),
+						)
 					],
 				),
 			),
