@@ -11,6 +11,7 @@ class App extends StatelessWidget {
 	@override
 	state<app> createState() => _Appstate();
 }
+
 class _Appstate extends State<App>{
 	late bool isInitStarted;
 	
@@ -21,7 +22,15 @@ class _Appstate extends State<App>{
 	}
 	@override
 	Widget build(BuildContext context) {
-		return isInitStarted ? const InitStartPage() : const SplashPage();
+		return isInitStarted 
+			? const InitStartPage(
+			onStart: () {
+				setState(() {
+					isInitStarted = false;
+				});
+				prefs.setBool('isInitStarted', isInitStarted);
+			},
+		) : const SplashPage();
 	}
 }
 
@@ -35,7 +44,7 @@ class InitStartPage extends StatelesWidget {
 	
 	@override
 	Widget build(BuildContext context) {
-		return const Scaffold(
+		return Scaffold(
 			body: Center(
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
@@ -48,25 +57,96 @@ class InitStartPage extends StatelesWidget {
 							),
 						),
 						const SizeBox(height: 40),
-						Text(
-							'당신의 최애 밴드를 발견하고 그들의 일상에 공감해보세요!',
-							style: GoogleFonts.notoSans(
-								fontWeight: FontWeight.bold,
-								fontSize: 20,
-								color: Colors.white,
+						const AppFont(
+							'Minor Notes, Major Impact',
+							fontWeight: FontWeight.bold,
+							size: 20,
 							),
 						),
 						const SizeBox(height: 15),
-						Text(
+						const AppFont(
 							'당신의 최애 밴드를 발견하고 그들의 일상에 공감해보세요!',
-							style: GoogleFonts.notoSans(
-								textAlign: TextAlign.center,
-								fontSize: 18,
-								color: Colors.white.withOpacity(0.6),
-							),
+							align: TextAlign.center,
+							size: 18,
+							color: Colors.white.withOpacity(0.6),
 						)
 					],
 				),
+			),
+			bottomNavigationBar: Padding(
+				padding: EdgeInsets.only(
+					left: 25, right: 25, bottom: 25 + Get.mediaQuery.padding.bottom),
+				child: Btn(
+					onTap: onStart,
+					child: const AppFont(
+						'시작하기',
+						align: TextAlign.center,
+						size: 18,
+						fontWeight: FontWeight.bold,
+					),
+				),
+			),
+		);
+	}
+}
+
+// src/common/components/btn.dart
+import 'package:umicat_app/src/common/components/app_font.dart';
+import 'package:flutter/material.dart';
+
+class Btn exends StatelesWidget {
+	final Widget child;
+	final Function() onTap;
+	const Btn(){
+		super.key,
+		required this.child,
+		required this.onTap,
+	});
+
+	@override
+	Widget build(BuildContext context) {
+		return GestureDetector(
+			onTap: () {],
+			child: ClipRRect(
+				borderRadius: BorderRadius.circular(7),
+				child: Container(
+					padding: const EdgeInsets.symmetric(vertical: 15),
+					color: const Color(0xffED7738),
+					child: child,	
+				),
+			),
+		);
+	}
+}
+
+// src/common/components/app_fonts.dart
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class Appfonts extends StatelessWidget {
+	final String text;
+	final Color? color;
+	final double? size;
+	final TextAlign? align;
+	final FontWeight? fontWeight;
+	const AppFont(
+		this.text, {
+		super.key,
+		this.color = Colors.white,
+		this.align,
+		this.size,
+		this.fontWeight,
+	});
+
+	@override
+	Widget build(BuildContext context) {
+		return Text(
+			text,
+			textAlign: align,
+			style: GoogleFonts.notoSans(
+				color: color,
+				fontSize: size,
+				fontWeight: fontWeight,
 			),
 		);
 	}
