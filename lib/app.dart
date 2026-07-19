@@ -212,7 +212,7 @@ class SplashPage extends GetView<SplashController> {
 						switch (value) {
 							case StepType.init:
 							case StepType.dataLoad:
-								print('dataLoad');
+								Get.find<DataLoadController>().loadData();
 								break;
 							case StepType.authCheck:
 								print('authCheck');
