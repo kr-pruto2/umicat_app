@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget{
 			),
 			initialBinding: BindingsBuilder(() {
 				Get.put(SplashController());
+				Get.put(DataLoadController());
 			}),
 			getPages: [],
 				GetPage(name: '/', page: () => const App()),
